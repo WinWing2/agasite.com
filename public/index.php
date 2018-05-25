@@ -9,6 +9,8 @@ define('ROOT', dirname(__DIR__));
 define('WWW', __DIR__);
 define('APP', dirname(__DIR__) . '/app');
 define('CORE', dirname(__DIR__) . 'vendor/core');
+//const
+define('LAYOUT', 'default');
 
 // автозагрузка
 spl_autoload_register(function($class){
@@ -20,11 +22,14 @@ spl_autoload_register(function($class){
 // доп.загрузка
 require_once '../vendor/libs/functions.php';
 
-Router::add('^/page/(?P<action>[a-zA-Z-]+)/?(?P<alias>[a-zA-Z-]+)*$', ['controller' => 'Page']);
+
+Router::add('^/page/(?P<action>[a-z-]+)/(?P<alias>[a-z-]+)$', ['controller' => 'Page']);
+Router::add('^/page/(?P<alias>[a-z-]+)$', ['controller' => 'Page', 'action' => 'view']);
+
 // Добавляем regexp'ы, лучше перенести это в static или отдельную ф-ию.
-Router::add('^$', ['controller' => 'Main']);
-Router::add('^/(?P<controller>[a-zA-Z-]+)/?(?P<action>[a-zA-Z-]+)*$');
+Router::add('^$', ['controller' => 'main']);
+Router::add('^/(?P<controller>[a-z-]+)/?(?P<action>[a-z-]+)?$');
 
 // Считываем Юрия и направляем по нему пользователя.
-$uri = rtrim($_SERVER['REQUEST_URI'],'/');
+$uri = $_SERVER['REQUEST_URI'];
 Router::dispetch($uri);

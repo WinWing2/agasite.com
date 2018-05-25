@@ -3,16 +3,13 @@
 namespace app\controllers;
 use function vendor\libs\debug;
 
-class Posts extends \vendor\core\base\Controller {
+class PostsController extends AppController {
 
     public function indexAction(){
-		echo "Posts::index";
+		echo "You at posts::index";
 	}
 
     public function testAction(){
-        debug($this->route);
-        echo "test matherfucker";
+        echo "You at posts::test";
     }
-
-
 }
